@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts | Liquor Intelligence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">R-I</div>
+                <div class="logo-text">
+                    <div class="brand">ROBO-I</div>
+                    <div class="tagline">Liquor Intelligence</div>
+                </div>
+            </div>
+            <div class="site-info">
+                <span class="section-badge critical">ALERTS LOG</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <a href="index.html" class="btn btn-secondary">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main class="main-content" style="padding-top: 2rem;">
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">🚨 Active & Recent Alerts</h2>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-primary">Export CSV</button>
+                    <button class="btn btn-secondary">Filter</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="alerts-list" style="max-height: none;">
+                        <div class="alert-item critical">
+                            <span class="alert-icon">🎂</span>
+                            <div class="alert-content">
+                                <span class="alert-title">Age Verification Missed - CAM-05</span>
+                                <span class="alert-meta">Checkout Counter | Customer appeared under 30 | Staff: Mike
+                                    Chen</span>
+                                <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                                    <button class="btn btn-secondary"
+                                        style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">View Video</button>
+                                    <button class="btn btn-secondary"
+                                        style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Mark Resolved</button>
+                                </div>
+                            </div>
+                            <span class="alert-time">15 min ago</span>
+                        </div>
+
+                        <div class="alert-item high">
+                            <span class="alert-icon">👀</span>
+                            <div class="alert-content">
+                                <span class="alert-title">Suspicious Loitering - CAM-02</span>
+                                <span class="alert-meta">Spirits Section | Dwell time > 7 mins | Individual with
+                                    backpack</span>
+                            </div>
+                            <span class="alert-time">22 min ago</span>
+                        </div>
+
+                        <div class="alert-item medium">
+                            <span class="alert-icon">❄️</span>
+                            <div class="alert-content">
+                                <span class="alert-title">Cooler Door Open Alert - CAM-04</span>
+                                <span class="alert-meta">Beer Section | Door #3 left open > 45 sec</span>
+                            </div>
+                            <span class="alert-time">35 min ago</span>
+                        </div>
+
+                        <div class="alert-item medium">
+                            <span class="alert-icon">🍺</span>
+                            <div class="alert-content">
+                                <span class="alert-title">Low Stock Alert - Craft Beer</span>
+                                <span class="alert-meta">Inventory System | Stock below 20% | SKU: IPA-VAR-12</span>
+                            </div>
+                            <span class="alert-time">1 hr ago</span>
+                        </div>
+
+                        <div class="alert-item medium">
+                            <span class="alert-icon">👔</span>
+                            <div class="alert-content">
+                                <span class="alert-title">Staff Zone Violation</span>
+                                <span class="alert-meta">Entrance Zone | Unattended for > 3 mins</span>
+                            </div>
+                            <span class="alert-time">2 hr ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

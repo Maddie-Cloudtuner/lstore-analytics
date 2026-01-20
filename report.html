@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | Liquor Intelligence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <div class="logo-icon">R-I</div>
+                <div class="logo-text">
+                    <div class="brand">ROBO-I</div>
+                    <div class="tagline">Liquor Intelligence</div>
+                </div>
+            </div>
+            <div class="site-info">
+                <span class="section-badge" style="background: var(--brand-primary); color: white;">COMPLIANCE
+                    REPORT</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <a href="index.html" class="btn btn-secondary">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main class="main-content" style="padding-top: 2rem;">
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">📊 Weekly Compliance Report (Jan 13 - Jan 19)</h2>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-primary" onclick="window.print()">🖨️ Print PDF</button>
+                    <button class="btn btn-secondary">Share</button>
+                </div>
+            </div>
+
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Total Visitors
+                        </h3>
+                        <div style="font-size: 2rem; font-weight: 700;">4,821</div>
+                        <div class="stat-trend up">↑ 5.2% vs last week</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Age Verification
+                        </h3>
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--success);">99.2%</div>
+                        <div class="stat-trend up">Target: 100%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Refusals
+                            (Minor/Intox)</h3>
+                        <div style="font-size: 2rem; font-weight: 700;">24</div>
+                        <div class="stat-trend">Prevented sales</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align: center;">
+                        <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Incident Reports
+                        </h3>
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--warning);">3</div>
+                        <div class="stat-trend">2 Theft / 1 Disorderly</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Compliance Trends</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="height: 300px;">
+                            <canvas id="complianceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Detailed Breakdown</h3>
+                    </div>
+                    <div class="card-body">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                            <thead style="text-align: left; border-bottom: 1px solid var(--border-glass);">
+                                <tr>
+                                    <th style="padding: 0.75rem;">Metric</th>
+                                    <th style="padding: 0.75rem;">Score</th>
+                                    <th style="padding: 0.75rem;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid var(--border-glass);">
+                                    <td style="padding: 0.75rem;">ID Check Rate (< 30)</td>
+                                    <td style="padding: 0.75rem;">99.2%</td>
+                                    <td style="padding: 0.75rem; color: var(--success);">Passed</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border-glass);">
+                                    <td style="padding: 0.75rem;">Staff Zone Coverage</td>
+                                    <td style="padding: 0.75rem;">96.5%</td>
+                                    <td style="padding: 0.75rem; color: var(--success);">Passed</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border-glass);">
+                                    <td style="padding: 0.75rem;">Cooler Temp Checks</td>
+                                    <td style="padding: 0.75rem;">100%</td>
+                                    <td style="padding: 0.75rem; color: var(--success);">Passed</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border-glass);">
+                                    <td style="padding: 0.75rem;">Planogram Compliance</td>
+                                    <td style="padding: 0.75rem;">88%</td>
+                                    <td style="padding: 0.75rem; color: var(--warning);">Review</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;">Inventory Accuracy</td>
+                                    <td style="padding: 0.75rem;">94%</td>
+                                    <td style="padding: 0.75rem; color: var(--success);">Passed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('complianceChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Overall Compliance Score',
+                            data: [98, 97, 99, 96, 98, 95, 99],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { min: 90, max: 100, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748b' } },
+                            x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

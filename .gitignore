@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Environment & Secrets
+.env
+*.json
+!package.json
+!vercel.json
+
+# Test files (not needed for dashboard)
+test_local_video.py
+liquor_prompt.py
+lstoretest1.mp4
+*.mp4
+
+# Generated outputs
+analyzed_frame.png
+analyzed_frame.jpg
+analyzed_footage.mp4
+liquor_analysis_output.json
+temp_annotated.mp4
+error_output.txt
+
+# IDE
+.vscode/
+.idea/
