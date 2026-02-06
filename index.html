@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
 
 <body>
@@ -46,1116 +47,1237 @@
         </div>
     </header>
 
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-icon">🏪</div>
-            <span class="stat-label">Store Health</span>
-            <div class="stat-value highlight-green">94%</div>
-            <div class="stat-trend up">↑ 2%</div>
+    <!-- App Layout with Sidebar -->
+    <div class="app-layout">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-item active" data-tab="overview" title="Dashboard">
+                    <span class="sidebar-icon">📊</span>
+                    <span class="sidebar-label">Dashboard</span>
+                </a>
+                <a href="#" class="sidebar-item" data-tab="live" title="Recent Audits">
+                    <span class="sidebar-icon">📋</span>
+                    <span class="sidebar-label">Recent Audits</span>
+                </a>
+                <a href="#" class="sidebar-item" data-tab="inventory" title="Inventory">
+                    <span class="sidebar-icon">🍷</span>
+                    <span class="sidebar-label">Inventory</span>
+                </a>
+                <a href="#" class="sidebar-item" data-tab="staff" title="Staff">
+                    <span class="sidebar-icon">👔</span>
+                    <span class="sidebar-label">Staff</span>
+                </a>
+                <a href="#" class="sidebar-item" data-tab="security" title="Security">
+                    <span class="sidebar-icon">🛡️</span>
+                    <span class="sidebar-label">Security</span>
+                </a>
+                <a href="#" class="sidebar-item" data-tab="customer" title="Customer">
+                    <span class="sidebar-icon">🛍️</span>
+                    <span class="sidebar-label">Customer</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <a href="#" class="sidebar-item robo-ai-btn" data-tab="assistant" title="ROBO-AI Assistant">
+                    <span class="sidebar-icon">🤖</span>
+                    <span class="sidebar-label">ROBO-AI</span>
+                </a>
+                <a href="#" class="sidebar-item" title="Settings">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span class="sidebar-label">Settings</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-icon">🏪</div>
+                    <span class="stat-label">Store Health</span>
+                    <div class="stat-value highlight-green">94%</div>
+                    <div class="stat-trend up">↑ 2%</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">👥</div>
+                    <span class="stat-label">Customers Today</span>
+                    <div class="stat-value">847</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">⏱️</div>
+                    <span class="stat-label">Avg Queue</span>
+                    <div class="stat-value">2.8m</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🚨</div>
+                    <span class="stat-label">Active Alerts</span>
+                    <div class="stat-value highlight-red">4</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">📋</div>
+                    <span class="stat-label">Compliance</span>
+                    <div class="stat-value">96%</div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Tab Navigation (hidden, controlled by sidebar) -->
+                <nav class="tab-nav" style="display: none;">
+                    <button class="tab-btn active" data-tab="overview">📊 Overview</button>
+                    <button class="tab-btn" data-tab="inventory">🍷 Inventory</button>
+                    <button class="tab-btn" data-tab="age">🎂 Age Verification</button>
+                    <button class="tab-btn" data-tab="staff">👔 Staff</button>
+                    <button class="tab-btn" data-tab="customer">🛍️ Customer</button>
+                    <button class="tab-btn" data-tab="security">🛡️ Security</button>
+                    <button class="tab-btn" data-tab="live">📋 Recent Audits</button>
+                    <button class="tab-btn" data-tab="assistant">🤖 ROBO-AI</button>
+                </nav>
+
+                <!-- Overview Tab -->
+                <div class="tab-content active" id="tab-overview">
+                    <!-- Quick Summary Cards -->
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">📊 Store Dashboard</h2>
+                            <span class="section-badge critical">2 CRITICAL ALERTS</span>
+                        </div>
+                        <div class="grid-4">
+                            <!-- Age Verification Card -->
+                            <div class="card" style="cursor: pointer;"
+                                onclick="document.querySelector('[data-tab=age]').click()">
+                                <div class="card-header">
+                                    <h3>🎂 Age Verification</h3>
+                                    <span style="font-size: 0.7rem; color: var(--high);">1 missed</span>
+                                </div>
+                                <div class="card-body"
+                                    style="display: flex; justify-content: space-around; text-align: center; padding: 1rem;">
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">98.5%
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Check Rate</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">142
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Verified</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--critical);">3
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Refused</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Staff Card -->
+                            <div class="card" style="cursor: pointer;"
+                                onclick="document.querySelector('[data-tab=staff]').click()">
+                                <div class="card-header">
+                                    <h3>👔 Staff Compliance</h3>
+                                    <span style="font-size: 0.7rem; color: var(--success);">All OK</span>
+                                </div>
+                                <div class="card-body"
+                                    style="display: flex; justify-content: space-around; text-align: center; padding: 1rem;">
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">6
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">On Floor</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">100%
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Uniform</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">0
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Phone Use</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Inventory Card -->
+                            <div class="card" style="cursor: pointer;"
+                                onclick="document.querySelector('[data-tab=inventory]').click()">
+                                <div class="card-header">
+                                    <h3>🍷 Inventory Status</h3>
+                                    <span style="font-size: 0.7rem; color: var(--medium);">1 low stock</span>
+                                </div>
+                                <div class="card-body"
+                                    style="display: flex; justify-content: space-around; text-align: center; padding: 1rem;">
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">✓
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Cooler OK</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">96%
+                                        </div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Display</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--medium);">1</div>
+                                        <div style="font-size: 0.7rem; color: var(--text-muted);">Low Stock</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Reports Card -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🤖 AI Audit Reports</h3>
+                                    <span style="font-size: 0.7rem; color: var(--accent-secondary);">GPT Powered</span>
+                                </div>
+                                <div class="card-body" style="padding: 1rem;">
+                                    <select class="camera-dropdown" id="reportType"
+                                        style="width: 100%; margin-bottom: 0.75rem;">
+                                        <option value="daily">📅 Daily Compliance Audit</option>
+                                        <option value="weekly">📊 Weekly Performance</option>
+                                        <option value="age">🎂 Age Verification Report</option>
+                                        <option value="security">🛡️ Security Report</option>
+                                    </select>
+                                    <button class="btn btn-primary" style="width: 100%;" onclick="generateAIReport()">
+                                        ✨ Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Store Hygiene & Staff Shift Coverage -->
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🧹 Store Hygiene Score</h3>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Last 7 Days</span>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="hygieneScoreChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>⏰ Staff Shift Coverage</h3>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Today</span>
+                                </div>
+                                <div class="chart-container"
+                                    style="display: flex; align-items: center; justify-content: center;">
+                                    <canvas id="shiftCoverageChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Compliance Index & Peak Traffic -->
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📊 Compliance Index</h3>
+                                    <button class="btn btn-ghost" style="font-size: 0.75rem;" onclick="openSOPModal()"
+                                        title="View SOP Details">👁️</button>
+                                </div>
+                                <div class="chart-container"
+                                    style="display: flex; align-items: center; justify-content: center; min-height: 280px;">
+                                    <canvas id="complianceRadarChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📈 Peak Traffic</h3>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">By Zone & Hour</span>
+                                </div>
+                                <div class="card-body" style="padding: 0.75rem;">
+                                    <div class="peak-traffic-grid" id="peakTrafficGrid">
+                                        <!-- Peak traffic heatmap populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Customer Traffic Chart -->
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📈 Customer Traffic (7 Days)</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="footfallChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>💰 Sales by Category</h3>
+                                </div>
+                                <div class="chart-container"
+                                    style="display: flex; align-items: center; justify-content: center;">
+                                    <canvas id="categorySalesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Recent Compliance Audits -->
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📋 Recent Compliance Audits</h3>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button class="btn btn-ghost audit-filter active" data-filter="all">All</button>
+                                    <button class="btn btn-ghost audit-filter" data-filter="critical">Critical</button>
+                                    <button class="btn btn-ghost audit-filter" data-filter="warning">Warning</button>
+                                    <button class="btn btn-ghost audit-filter" data-filter="triaged">Triaged</button>
+                                </div>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <div class="audit-table" id="recentAuditsTable">
+                                    <!-- Audit rows populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Inventory Tab -->
+                <div class="tab-content" id="tab-inventory">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">🍷 Inventory Status</h2>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-secondary"
+                                    style="background: linear-gradient(135deg, #8B0000, #722F37); color: white;">Spirits
+                                    (245)</button>
+                                <button class="btn btn-secondary"
+                                    style="background: linear-gradient(135deg, #722F37, #8B4513); color: white;">Wine
+                                    (189)</button>
+                                <button class="btn btn-secondary">Beer (312)</button>
+                                <button class="btn btn-secondary">⚠️ Low Stock (1)</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="equipment-grid" id="inventoryGrid">
+                                <!-- Inventory items populated by JS -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Category Status -->
+                    <section class="section">
+                        <div class="grid-4">
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">OK</span>
+                                    <span class="kpi-icon">🥃</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Premium Spirits</div>
+                                    <div class="kpi-description">Whiskey, Vodka, Rum section</div>
+                                    <div class="kpi-value success">98%</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">OK</span>
+                                    <span class="kpi-icon">🍷</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Wine Section</div>
+                                    <div class="kpi-description">Red, White, Sparkling</div>
+                                    <div class="kpi-value success">96%</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card medium">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity medium">LOW</span>
+                                    <span class="kpi-icon">🍺</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Craft Beer</div>
+                                    <div class="kpi-description">Restock needed</div>
+                                    <div class="kpi-value medium">78%</div>
+                                </div>
+                                <div class="kpi-footer">
+                                    <span class="kpi-action">Order Stock →</span>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">OK</span>
+                                    <span class="kpi-icon">❄️</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Cooler Status</div>
+                                    <div class="kpi-description">All units at temp</div>
+                                    <div class="kpi-value success">38°F</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Display Compliance -->
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📊 Display Compliance by Section</h3>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);">Planogram adherence</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">🥃 Premium Spirits</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 98%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">98%</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">🍷 Wine Wall</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 96%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">96%</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">🍺 Beer Cooler</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 94%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">94%</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">🍸 Mixers & Accessories</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill"
+                                            style="width: 88%; background: linear-gradient(90deg, var(--medium), var(--high));">
+                                        </div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--medium);">88% ⚠️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Age Verification Tab -->
+                <div class="tab-content" id="tab-age">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">🎂 Age Verification Compliance</h2>
+                            <span class="section-badge"
+                                style="background: var(--success-bg); color: var(--success);">98.5%
+                                COMPLIANT</span>
+                        </div>
+                        <div class="grid-4">
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">EXCELLENT</span>
+                                    <span class="kpi-icon">✓</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">ID Check Rate</div>
+                                    <div class="kpi-description">Under 30 appearance</div>
+                                    <div class="kpi-value success">98.5%</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card high">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity high">ALERT</span>
+                                    <span class="kpi-icon">⚠️</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Missed Verification</div>
+                                    <div class="kpi-description">Today at 2:15 PM</div>
+                                    <div class="kpi-value high">1</div>
+                                </div>
+                                <div class="kpi-footer">
+                                    <span class="kpi-action">Review Incident →</span>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">COMPLIANT</span>
+                                    <span class="kpi-icon">🚫</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Minor Refusals</div>
+                                    <div class="kpi-description">Sales prevented</div>
+                                    <div class="kpi-value success">3</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">GOOD</span>
+                                    <span class="kpi-icon">⏱️</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Avg Verification Time</div>
+                                    <div class="kpi-description">ID check duration</div>
+                                    <div class="kpi-value success">18s</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Verification Log -->
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📋 Recent Verifications</h3>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Last 10 checks</span>
+                                </div>
+                                <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+                                    <div id="verificationLog">
+                                        <!-- Log populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📊 Hourly Verification Rate</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="verificationChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Staff Tab -->
+                <div class="tab-content" id="tab-staff">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">👔 Staff Compliance Monitoring</h2>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-secondary">✅ Compliant (6)</button>
+                                <button class="btn btn-secondary">⚠️ Issues (0)</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="staff-grid" id="staffGrid">
+                                <!-- Staff cards populated by JS -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Staff KPIs -->
+                    <section class="section">
+                        <div class="grid-4">
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">GOOD</span>
+                                    <span class="kpi-icon">📱</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Phone Usage</div>
+                                    <div class="kpi-description">No violations today</div>
+                                    <div class="kpi-value success">0</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">OK</span>
+                                    <span class="kpi-icon">👕</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Uniform Compliance</div>
+                                    <div class="kpi-description">All staff compliant</div>
+                                    <div class="kpi-value success">100%</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">OPTIMAL</span>
+                                    <span class="kpi-icon">📍</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Zone Coverage</div>
+                                    <div class="kpi-description">All zones staffed</div>
+                                    <div class="kpi-value success">100%</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">GOOD</span>
+                                    <span class="kpi-icon">🎂</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">ID Check Compliance</div>
+                                    <div class="kpi-description">Per staff member</div>
+                                    <div class="kpi-value success">98%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Zone Coverage -->
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📍 Zone Coverage Status</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">Checkout Counter</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">2 staff</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">Spirits Section</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">1 staff</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">Wine Section</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">1 staff</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">Beer & Cooler</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">1 staff</span>
+                                </div>
+                                <div class="compliance-meter">
+                                    <span class="compliance-label">Entrance</span>
+                                    <div class="compliance-bar">
+                                        <div class="compliance-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="compliance-value" style="color: var(--success);">1 staff</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Customer Experience Tab -->
+                <div class="tab-content" id="tab-customer">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">🛍️ Customer Experience</h2>
+                            <span class="section-badge"
+                                style="background: var(--success-bg); color: var(--success);">GOOD
+                                FLOW</span>
+                        </div>
+                        <div class="grid-4">
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">GOOD</span>
+                                    <span class="kpi-icon">⏱️</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Avg Wait Time</div>
+                                    <div class="kpi-description">Checkout queue</div>
+                                    <div class="kpi-value success">2.8m</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">OK</span>
+                                    <span class="kpi-icon">🛒</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Checkout Lanes</div>
+                                    <div class="kpi-description">Open / Total</div>
+                                    <div class="kpi-value success">2/2</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">GOOD</span>
+                                    <span class="kpi-icon">🎯</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Conversion Rate</div>
+                                    <div class="kpi-description">Visitors who purchased</div>
+                                    <div class="kpi-value success">78%</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">EXCELLENT</span>
+                                    <span class="kpi-icon">💰</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Avg Transaction</div>
+                                    <div class="kpi-description">Per customer</div>
+                                    <div class="kpi-value success">$47</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Queue Status -->
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🛒 Live Queue Status</h3>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">2/2 counters open</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="queue-status" id="queueStatus">
+                                    <!-- Queue items populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Customer Charts -->
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📊 Hourly Traffic</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="hourlyTrafficChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🎯 Sales by Category</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="salesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Security Tab -->
+                <div class="tab-content" id="tab-security">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">🛡️ Security & Loss Prevention</h2>
+                            <span class="section-badge critical">1 ACTIVE</span>
+                        </div>
+                        <div class="grid-4">
+                            <div class="kpi-card high">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity high">HIGH</span>
+                                    <span class="kpi-icon">👀</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Suspicious Loitering</div>
+                                    <div class="kpi-description">Spirits section - 7 min</div>
+                                    <div class="kpi-value high">1</div>
+                                </div>
+                                <div class="kpi-footer">
+                                    <span class="kpi-action">View Camera →</span>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">CLEAR</span>
+                                    <span class="kpi-icon">🚪</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Backroom Access</div>
+                                    <div class="kpi-description">No unauthorized entry</div>
+                                    <div class="kpi-value success">0</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">CLEAR</span>
+                                    <span class="kpi-icon">🍺</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Concealment</div>
+                                    <div class="kpi-description">No theft attempts</div>
+                                    <div class="kpi-value success">0</div>
+                                </div>
+                            </div>
+                            <div class="kpi-card success">
+                                <div class="kpi-header">
+                                    <span class="kpi-severity success">SECURED</span>
+                                    <span class="kpi-icon">💰</span>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-title">Cash Drawer</div>
+                                    <div class="kpi-description">Always attended</div>
+                                    <div class="kpi-value success">✓</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Security Stats -->
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>📈 Security Incidents (30 Days)</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="securityChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🎯 Shrinkage Hotspots</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="compliance-meter">
+                                        <span class="compliance-label">Premium Spirits</span>
+                                        <div class="compliance-bar">
+                                            <div class="compliance-fill"
+                                                style="width: 40%; background: var(--gradient-danger);"></div>
+                                        </div>
+                                        <span class="compliance-value" style="color: var(--critical);">High Risk</span>
+                                    </div>
+                                    <div class="compliance-meter">
+                                        <span class="compliance-label">Fine Wine</span>
+                                        <div class="compliance-bar">
+                                            <div class="compliance-fill"
+                                                style="width: 25%; background: linear-gradient(90deg, var(--medium), var(--high));">
+                                            </div>
+                                        </div>
+                                        <span class="compliance-value" style="color: var(--high);">Medium</span>
+                                    </div>
+                                    <div class="compliance-meter">
+                                        <span class="compliance-label">Craft Beer</span>
+                                        <div class="compliance-bar">
+                                            <div class="compliance-fill" style="width: 15%;"></div>
+                                        </div>
+                                        <span class="compliance-value" style="color: var(--success);">Low</span>
+                                    </div>
+                                    <div class="compliance-meter">
+                                        <span class="compliance-label">Mixers</span>
+                                        <div class="compliance-bar">
+                                            <div class="compliance-fill" style="width: 5%;"></div>
+                                        </div>
+                                        <span class="compliance-value" style="color: var(--success);">Very Low</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Cameras Tab -->
+                <div class="tab-content" id="tab-cameras">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">📹 Camera Selection</h2>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;">6 cameras online</span>
+                        </div>
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Select Camera</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                        <button class="btn btn-secondary camera-select-btn" data-camera="cam-01"
+                                            style="justify-content: space-between; width: 100%;">
+                                            <span>📹 CAM-01 | Entrance/Exit</span>
+                                            <span style="color: var(--success);">● Online</span>
+                                        </button>
+                                        <button class="btn btn-secondary camera-select-btn" data-camera="cam-02"
+                                            style="justify-content: space-between; width: 100%;">
+                                            <span>📹 CAM-02 | Spirits Section</span>
+                                            <span style="color: var(--success);">● Online</span>
+                                        </button>
+                                        <button class="btn btn-secondary camera-select-btn" data-camera="cam-03"
+                                            style="justify-content: space-between; width: 100%;">
+                                            <span>📹 CAM-03 | Wine Section</span>
+                                            <span style="color: var(--success);">● Online</span>
+                                        </button>
+                                        <button class="btn btn-secondary camera-select-btn" data-camera="cam-04"
+                                            style="justify-content: space-between; width: 100%;">
+                                            <span>📹 CAM-04 | Beer & Cooler</span>
+                                            <span style="color: var(--success);">● Online</span>
+                                        </button>
+                                        <button class="btn btn-secondary camera-select-btn" data-camera="cam-05"
+                                            style="justify-content: space-between; width: 100%; border-color: var(--high);">
+                                            <span>📹 CAM-05 | Checkout Counter</span>
+                                            <span style="color: var(--high);">⚠ Alert</span>
+                                        </button>
+                                        <button class="btn btn-secondary camera-select-btn" data-camera="cam-06"
+                                            style="justify-content: space-between; width: 100%;">
+                                            <span>📹 CAM-06 | Storage/Backroom</span>
+                                            <span style="color: var(--success);">● Online</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3><span class="live-dot"></span> Live Preview</h3>
+                                </div>
+                                <div class="card-body" style="padding: 0;">
+                                    <div class="camera-view" id="cameraTabView">
+                                        <div class="placeholder">🍷</div>
+                                        <div class="camera-info">
+                                            <div class="camera-badge live">
+                                                <span class="dot"></span>
+                                                <span id="cameraTabName">CAM-01 | Entrance/Exit</span>
+                                            </div>
+                                        </div>
+                                        <div class="camera-stats">
+                                            <div class="camera-stat">
+                                                <span>👤 Customers</span>
+                                                <div class="value" id="cameraTabPersons">12</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Live Analysis Tab (NEW) -->
+                <div class="tab-content" id="tab-live">
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">🔴 Live Analysis</h2>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <span class="live-dot"></span>
+                                <span style="color: var(--critical); font-size: 0.8rem; font-weight: 600;">REAL-TIME AI
+                                    PROCESSING</span>
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <!-- Live Camera Feed with Overlays -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3><span class="live-dot"></span> Live Camera Feed</h3>
+                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                        <select class="camera-dropdown" id="liveAnalysisCamera"
+                                            style="font-size: 0.75rem;">
+                                            <option value="cam-01">CAM-01 | Entrance</option>
+                                            <option value="cam-02">CAM-02 | Spirits</option>
+                                            <option value="cam-03">CAM-03 | Wine</option>
+                                            <option value="cam-04">CAM-04 | Beer</option>
+                                            <option value="cam-05" selected>CAM-05 | Checkout</option>
+                                            <option value="cam-06">CAM-06 | Storage</option>
+                                        </select>
+                                        <select class="camera-dropdown" id="aiModelSelect" style="font-size: 0.75rem;">
+                                            <option value="gpt4v">GPT-4 Vision</option>
+                                            <option value="gemini">Gemini Pro</option>
+                                            <option value="llama">LLaMA 3.2 Vision</option>
+                                            <option value="claude">Claude 3.5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="padding: 0;">
+                                    <div class="camera-view live-analysis-view" id="liveAnalysisView">
+                                        <div class="placeholder">🎥</div>
+                                        <!-- Detection Overlays -->
+                                        <div class="detection-overlay" id="detectionOverlays">
+                                            <div class="detection-box person"
+                                                style="top: 30%; left: 20%; width: 15%; height: 40%;">
+                                                <span class="detection-label">👤 Customer</span>
+                                            </div>
+                                            <div class="detection-box staff"
+                                                style="top: 25%; left: 60%; width: 12%; height: 35%;">
+                                                <span class="detection-label">👔 Staff</span>
+                                            </div>
+                                            <div class="detection-box id-check"
+                                                style="top: 50%; left: 40%; width: 20%; height: 8%;">
+                                                <span class="detection-label">🎂 ID Check Zone</span>
+                                            </div>
+                                        </div>
+                                        <div class="camera-info">
+                                            <div class="camera-badge live">
+                                                <span class="dot"></span>
+                                                <span>AI Analysis Active</span>
+                                            </div>
+                                        </div>
+                                        <div class="analysis-fps">
+                                            <span>🎯 FPS: 24</span>
+                                            <span>🧠 Latency: 120ms</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer" style="padding: 1rem; display: flex; gap: 0.5rem;">
+                                    <button class="btn btn-primary" onclick="analyzeFrame()">📸 Analyze Frame</button>
+                                    <button class="btn btn-secondary" id="toggleLiveBtn"
+                                        onclick="toggleLiveAnalysis()">⏸️
+                                        Pause</button>
+                                    <button class="btn btn-secondary" onclick="exportAnalysis()">📊 Export</button>
+                                </div>
+                            </div>
+
+                            <!-- AI Analysis Panel -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🧠 AI Analysis Results</h3>
+                                    <span id="analysisTimestamp"
+                                        style="font-size: 0.7rem; color: var(--text-muted);">Updated:
+                                        Just now</span>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Compliance Scores -->
+                                    <div class="analysis-section">
+                                        <h4
+                                            style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                                            📊
+                                            COMPLIANCE SCORES</h4>
+                                        <div class="compliance-meter">
+                                            <span class="compliance-label">🎂 Age Verification</span>
+                                            <div class="compliance-bar">
+                                                <div class="compliance-fill" style="width: 100%;" id="ageComplianceBar">
+                                                </div>
+                                            </div>
+                                            <span class="compliance-value" style="color: var(--success);"
+                                                id="ageComplianceVal">✓
+                                                Verified</span>
+                                        </div>
+                                        <div class="compliance-meter">
+                                            <span class="compliance-label">👔 Staff Compliance</span>
+                                            <div class="compliance-bar">
+                                                <div class="compliance-fill" style="width: 100%;"
+                                                    id="staffComplianceBar"></div>
+                                            </div>
+                                            <span class="compliance-value" style="color: var(--success);"
+                                                id="staffComplianceVal">100%</span>
+                                        </div>
+                                        <div class="compliance-meter">
+                                            <span class="compliance-label">🛡️ Security Status</span>
+                                            <div class="compliance-bar">
+                                                <div class="compliance-fill" style="width: 95%;" id="securityBar"></div>
+                                            </div>
+                                            <span class="compliance-value" style="color: var(--success);"
+                                                id="securityVal">Clear</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Scene Description -->
+                                    <div class="analysis-section" style="margin-top: 1rem;">
+                                        <h4
+                                            style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                                            🎯
+                                            SCENE ANALYSIS</h4>
+                                        <div class="scene-description" id="sceneDescription">
+                                            <p
+                                                style="font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary);">
+                                                <strong style="color: var(--accent-primary);">Current Scene:</strong>
+                                                Checkout
+                                                counter with 1 customer and 1 staff member. Customer (appears mid-30s)
+                                                presenting ID. Staff performing verification check.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Detections List -->
+                                    <div class="analysis-section" style="margin-top: 1rem;">
+                                        <h4
+                                            style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                                            📋
+                                            DETECTIONS</h4>
+                                        <div class="detections-list" id="detectionsList">
+                                            <div class="detection-item success">
+                                                <span>✓</span>
+                                                <span>ID verification in progress</span>
+                                                <span style="color: var(--text-muted);">2s ago</span>
+                                            </div>
+                                            <div class="detection-item success">
+                                                <span>✓</span>
+                                                <span>Staff in uniform, badge visible</span>
+                                                <span style="color: var(--text-muted);">5s ago</span>
+                                            </div>
+                                            <div class="detection-item info">
+                                                <span>ℹ️</span>
+                                                <span>Customer estimated age: 35-40</span>
+                                                <span style="color: var(--text-muted);">8s ago</span>
+                                            </div>
+                                            <div class="detection-item success">
+                                                <span>✓</span>
+                                                <span>Queue clear, no wait time</span>
+                                                <span style="color: var(--text-muted);">12s ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Stats -->
+                                    <div class="analysis-section" style="margin-top: 1rem;">
+                                        <div
+                                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; text-align: center;">
+                                            <div
+                                                style="padding: 0.75rem; background: var(--bg-glass); border-radius: 8px; border: 1px solid var(--border-glass);">
+                                                <div
+                                                    style="font-size: 1.25rem; font-weight: 700; color: var(--success);">
+                                                    2
+                                                </div>
+                                                <div style="font-size: 0.65rem; color: var(--text-muted);">People
+                                                    Detected</div>
+                                            </div>
+                                            <div
+                                                style="padding: 0.75rem; background: var(--bg-glass); border-radius: 8px; border: 1px solid var(--border-glass);">
+                                                <div
+                                                    style="font-size: 1.25rem; font-weight: 700; color: var(--success);">
+                                                    1
+                                                </div>
+                                                <div style="font-size: 0.65rem; color: var(--text-muted);">ID Checks
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="padding: 0.75rem; background: var(--bg-glass); border-radius: 8px; border: 1px solid var(--border-glass);">
+                                                <div
+                                                    style="font-size: 1.25rem; font-weight: 700; color: var(--success);">
+                                                    0
+                                                </div>
+                                                <div style="font-size: 0.65rem; color: var(--text-muted);">Alerts</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Analysis History -->
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📜 Analysis History</h3>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Last 10 significant
+                                    detections</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="analysis-history" id="analysisHistory">
+                                    <!-- History items populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- LIQUOR-GPT Tab -->
+                <div class="tab-content" id="tab-assistant">
+                    <section class="section">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>🤖 LIQUOR-GPT Assistant</h3>
+                                </div>
+                                <div class="chat-container">
+                                    <div class="chat-messages" id="chatMessages">
+                                        <div class="chat-message">
+                                            <div class="chat-avatar">🤖</div>
+                                            <div class="chat-bubble">
+                                                Welcome to <strong>LIQUOR-GPT</strong> — your intelligent liquor store
+                                                analytics assistant. I can help you with:
+                                                <ul
+                                                    style="margin-top: 0.5rem; padding-left: 1.25rem; color: var(--text-secondary);">
+                                                    <li>Age verification compliance</li>
+                                                    <li>Inventory and stock analysis</li>
+                                                    <li>Security and theft prevention</li>
+                                                    <li>Staff compliance reports</li>
+                                                </ul>
+                                                <div
+                                                    style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-glass); border-radius: 6px; font-size: 0.8rem;">
+                                                    <strong style="color: var(--accent-primary);">Tip:</strong> Try
+                                                    "Show age
+                                                    verification status" or "Generate compliance report"
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-input-container">
+                                        <input type="text" class="chat-input" id="chatInput"
+                                            placeholder="Ask ROBO-AI anything...">
+                                        <button class="btn btn-primary" id="chatSend">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>⚡ Quick Actions</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                        <button class="btn btn-secondary"
+                                            style="justify-content: flex-start; width: 100%;"
+                                            onclick="askGPT('Show age verification status')">
+                                            🎂 Age verification status
+                                        </button>
+                                        <button class="btn btn-secondary"
+                                            style="justify-content: flex-start; width: 100%;"
+                                            onclick="askGPT('What are today\\'s alerts?')">
+                                            🚨 Today's alerts
+                                        </button>
+                                        <button class="btn btn-secondary"
+                                            style="justify-content: flex-start; width: 100%;"
+                                            onclick="askGPT('Show inventory status')">
+                                            🍷 Inventory status
+                                        </button>
+                                        <button class="btn btn-secondary"
+                                            style="justify-content: flex-start; width: 100%;"
+                                            onclick="askGPT('Staff compliance summary')">
+                                            👔 Staff compliance
+                                        </button>
+                                        <button class="btn btn-secondary"
+                                            style="justify-content: flex-start; width: 100%;"
+                                            onclick="askGPT('Generate compliance report')">
+                                            📋 Generate compliance report
+                                        </button>
+                                        <button class="btn btn-secondary"
+                                            style="justify-content: flex-start; width: 100%;"
+                                            onclick="askGPT('Security status')">
+                                            🛡️ Security status
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                </section>
         </div>
-        <div class="stat-item">
-            <div class="stat-icon">👥</div>
-            <span class="stat-label">Customers Today</span>
-            <div class="stat-value">847</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">🎂</div>
-            <span class="stat-label">Age Check Rate</span>
-            <div class="stat-value highlight-green">98.5%</div>
-            <div class="stat-trend up">↑ 1.2%</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">⏱️</div>
-            <span class="stat-label">Avg Queue</span>
-            <div class="stat-value">2.8m</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">🚨</div>
-            <span class="stat-label">Active Alerts</span>
-            <div class="stat-value highlight-red">4</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">📋</div>
-            <span class="stat-label">Compliance</span>
-            <div class="stat-value">96%</div>
+        </main>
+    </div> <!-- close main-wrapper -->
+    </div> <!-- close app-layout -->
+
+    <!-- SOP Compliance Modal -->
+    <div class="modal-overlay" id="sopModal" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>SOP Compliance Detailed Logs</h2>
+                <button class="modal-close" onclick="closeSOPModal()">×</button>
+            </div>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Detailed record of all Standard Operating
+                Procedure (SOP) related events for the liquor store.</p>
+            <div class="sop-table-container">
+                <table class="sop-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Camera</th>
+                            <th>Greeting</th>
+                            <th>ID Check</th>
+                            <th>Cleanliness</th>
+                            <th>Uniform</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sopTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="sopPrevBtn" onclick="changeSopPage(-1)">Previous</button>
+                <span id="sopPageInfo" style="color: var(--text-secondary);">Page 1 of 5</span>
+                <button class="btn btn-primary" id="sopNextBtn" onclick="changeSopPage(1)">Next</button>
+            </div>
         </div>
     </div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Tab Navigation -->
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="overview">📊 Overview</button>
-            <button class="tab-btn" data-tab="inventory">🍷 Inventory</button>
-            <button class="tab-btn" data-tab="age">🎂 Age Verification</button>
-            <button class="tab-btn" data-tab="staff">👔 Staff</button>
-            <button class="tab-btn" data-tab="customer">🛍️ Customer</button>
-            <button class="tab-btn" data-tab="security">🛡️ Security</button>
-            <button class="tab-btn" data-tab="cameras">📹 Cameras</button>
-            <button class="tab-btn" data-tab="live">🔴 Live Analysis</button>
-            <button class="tab-btn" data-tab="assistant">🤖 LIQUOR-GPT</button>
-        </nav>
-
-        <!-- Overview Tab -->
-        <div class="tab-content active" id="tab-overview">
-            <!-- Quick Summary Cards -->
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">📊 Store Dashboard</h2>
-                    <span class="section-badge critical">2 CRITICAL ALERTS</span>
-                </div>
-                <div class="grid-4">
-                    <!-- Age Verification Card -->
-                    <div class="card" style="cursor: pointer;"
-                        onclick="document.querySelector('[data-tab=age]').click()">
-                        <div class="card-header">
-                            <h3>🎂 Age Verification</h3>
-                            <span style="font-size: 0.7rem; color: var(--high);">1 missed</span>
-                        </div>
-                        <div class="card-body"
-                            style="display: flex; justify-content: space-around; text-align: center; padding: 1rem;">
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">98.5%</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Check Rate</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">142</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Verified</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--critical);">3</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Refused</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Staff Card -->
-                    <div class="card" style="cursor: pointer;"
-                        onclick="document.querySelector('[data-tab=staff]').click()">
-                        <div class="card-header">
-                            <h3>👔 Staff Compliance</h3>
-                            <span style="font-size: 0.7rem; color: var(--success);">All OK</span>
-                        </div>
-                        <div class="card-body"
-                            style="display: flex; justify-content: space-around; text-align: center; padding: 1rem;">
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">6</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">On Floor</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">100%</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Uniform</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">0</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Phone Use</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Inventory Card -->
-                    <div class="card" style="cursor: pointer;"
-                        onclick="document.querySelector('[data-tab=inventory]').click()">
-                        <div class="card-header">
-                            <h3>🍷 Inventory Status</h3>
-                            <span style="font-size: 0.7rem; color: var(--medium);">1 low stock</span>
-                        </div>
-                        <div class="card-body"
-                            style="display: flex; justify-content: space-around; text-align: center; padding: 1rem;">
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">✓</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Cooler OK</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);">96%</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Display</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.75rem; font-weight: 800; color: var(--medium);">1</div>
-                                <div style="font-size: 0.7rem; color: var(--text-muted);">Low Stock</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- AI Reports Card -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🤖 AI Audit Reports</h3>
-                            <span style="font-size: 0.7rem; color: var(--accent-secondary);">GPT Powered</span>
-                        </div>
-                        <div class="card-body" style="padding: 1rem;">
-                            <select class="camera-dropdown" id="reportType"
-                                style="width: 100%; margin-bottom: 0.75rem;">
-                                <option value="daily">📅 Daily Compliance Audit</option>
-                                <option value="weekly">📊 Weekly Performance</option>
-                                <option value="age">🎂 Age Verification Report</option>
-                                <option value="security">🛡️ Security Report</option>
-                            </select>
-                            <button class="btn btn-primary" style="width: 100%;" onclick="generateAIReport()">
-                                ✨ Generate Report
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Live Monitoring -->
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">📡 Live Monitoring</h2>
-                </div>
-                <div class="grid-2">
-                    <!-- Camera View -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><span class="live-dot"></span> Live Feed</h3>
-                            <div class="camera-selector">
-                                <select class="camera-dropdown" id="cameraSelect">
-                                    <option value="cam-01">CAM-01 | Entrance/Exit ⚠️</option>
-                                    <option value="cam-02">CAM-02 | Spirits Section</option>
-                                    <option value="cam-03">CAM-03 | Wine Section</option>
-                                    <option value="cam-04">CAM-04 | Beer & Cooler</option>
-                                    <option value="cam-05">CAM-05 | Checkout Counter</option>
-                                    <option value="cam-06">CAM-06 | Storage/Backroom</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="card-body" style="padding: 0;">
-                            <div class="camera-view" id="cameraView">
-                                <div class="placeholder">🍷</div>
-                                <div class="camera-info">
-                                    <div class="camera-badge live">
-                                        <span class="dot"></span>
-                                        <span id="cameraName">CAM-01 | Entrance/Exit</span>
-                                    </div>
-                                </div>
-                                <div class="camera-stats">
-                                    <div class="camera-stat">
-                                        <span>👤 Customers</span>
-                                        <div class="value" id="cameraPersons">12</div>
-                                    </div>
-                                    <div class="camera-stat">
-                                        <span>🎂 ID Checks</span>
-                                        <div class="value">24</div>
-                                    </div>
-                                    <div class="camera-stat">
-                                        <span>🎯 Detections</span>
-                                        <div class="value" id="cameraDetections">847</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Real-time Alerts -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>
-                                <span class="live-indicator">
-                                    <span class="live-dot"></span>
-                                    Live Alerts
-                                </span>
-                            </h3>
-                            <a href="alerts.html" class="btn btn-ghost">View All →</a>
-                        </div>
-                        <div class="alerts-list" id="alertsList">
-                            <!-- Alerts populated by JS -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Charts -->
-            <section class="section">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📈 Customer Traffic (7 Days)</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="footfallChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🎂 Age Verification Rate (Today)</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="ageCheckChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Inventory Tab -->
-        <div class="tab-content" id="tab-inventory">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">🍷 Inventory Status</h2>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <button class="btn btn-secondary"
-                            style="background: linear-gradient(135deg, #8B0000, #722F37); color: white;">Spirits
-                            (245)</button>
-                        <button class="btn btn-secondary"
-                            style="background: linear-gradient(135deg, #722F37, #8B4513); color: white;">Wine
-                            (189)</button>
-                        <button class="btn btn-secondary">Beer (312)</button>
-                        <button class="btn btn-secondary">⚠️ Low Stock (1)</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="equipment-grid" id="inventoryGrid">
-                        <!-- Inventory items populated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Category Status -->
-            <section class="section">
-                <div class="grid-4">
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">OK</span>
-                            <span class="kpi-icon">🥃</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Premium Spirits</div>
-                            <div class="kpi-description">Whiskey, Vodka, Rum section</div>
-                            <div class="kpi-value success">98%</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">OK</span>
-                            <span class="kpi-icon">🍷</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Wine Section</div>
-                            <div class="kpi-description">Red, White, Sparkling</div>
-                            <div class="kpi-value success">96%</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card medium">
-                        <div class="kpi-header">
-                            <span class="kpi-severity medium">LOW</span>
-                            <span class="kpi-icon">🍺</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Craft Beer</div>
-                            <div class="kpi-description">Restock needed</div>
-                            <div class="kpi-value medium">78%</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-action">Order Stock →</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">OK</span>
-                            <span class="kpi-icon">❄️</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Cooler Status</div>
-                            <div class="kpi-description">All units at temp</div>
-                            <div class="kpi-value success">38°F</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Display Compliance -->
-            <section class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>📊 Display Compliance by Section</h3>
-                        <span style="font-size: 0.7rem; color: var(--text-muted);">Planogram adherence</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="compliance-meter">
-                            <span class="compliance-label">🥃 Premium Spirits</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 98%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">98%</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">🍷 Wine Wall</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 96%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">96%</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">🍺 Beer Cooler</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 94%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">94%</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">🍸 Mixers & Accessories</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill"
-                                    style="width: 88%; background: linear-gradient(90deg, var(--medium), var(--high));">
-                                </div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--medium);">88% ⚠️</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Age Verification Tab -->
-        <div class="tab-content" id="tab-age">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">🎂 Age Verification Compliance</h2>
-                    <span class="section-badge" style="background: var(--success-bg); color: var(--success);">98.5%
-                        COMPLIANT</span>
-                </div>
-                <div class="grid-4">
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">EXCELLENT</span>
-                            <span class="kpi-icon">✓</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">ID Check Rate</div>
-                            <div class="kpi-description">Under 30 appearance</div>
-                            <div class="kpi-value success">98.5%</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card high">
-                        <div class="kpi-header">
-                            <span class="kpi-severity high">ALERT</span>
-                            <span class="kpi-icon">⚠️</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Missed Verification</div>
-                            <div class="kpi-description">Today at 2:15 PM</div>
-                            <div class="kpi-value high">1</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-action">Review Incident →</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">COMPLIANT</span>
-                            <span class="kpi-icon">🚫</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Minor Refusals</div>
-                            <div class="kpi-description">Sales prevented</div>
-                            <div class="kpi-value success">3</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">GOOD</span>
-                            <span class="kpi-icon">⏱️</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Avg Verification Time</div>
-                            <div class="kpi-description">ID check duration</div>
-                            <div class="kpi-value success">18s</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Verification Log -->
-            <section class="section">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📋 Recent Verifications</h3>
-                            <span style="font-size: 0.75rem; color: var(--text-muted);">Last 10 checks</span>
-                        </div>
-                        <div class="card-body" style="max-height: 300px; overflow-y: auto;">
-                            <div id="verificationLog">
-                                <!-- Log populated by JS -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📊 Hourly Verification Rate</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="verificationChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Staff Tab -->
-        <div class="tab-content" id="tab-staff">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">👔 Staff Compliance Monitoring</h2>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <button class="btn btn-secondary">✅ Compliant (6)</button>
-                        <button class="btn btn-secondary">⚠️ Issues (0)</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="staff-grid" id="staffGrid">
-                        <!-- Staff cards populated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Staff KPIs -->
-            <section class="section">
-                <div class="grid-4">
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">GOOD</span>
-                            <span class="kpi-icon">📱</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Phone Usage</div>
-                            <div class="kpi-description">No violations today</div>
-                            <div class="kpi-value success">0</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">OK</span>
-                            <span class="kpi-icon">👕</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Uniform Compliance</div>
-                            <div class="kpi-description">All staff compliant</div>
-                            <div class="kpi-value success">100%</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">OPTIMAL</span>
-                            <span class="kpi-icon">📍</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Zone Coverage</div>
-                            <div class="kpi-description">All zones staffed</div>
-                            <div class="kpi-value success">100%</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">GOOD</span>
-                            <span class="kpi-icon">🎂</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">ID Check Compliance</div>
-                            <div class="kpi-description">Per staff member</div>
-                            <div class="kpi-value success">98%</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Zone Coverage -->
-            <section class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>📍 Zone Coverage Status</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="compliance-meter">
-                            <span class="compliance-label">Checkout Counter</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 100%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">2 staff</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">Spirits Section</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 100%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">1 staff</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">Wine Section</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 100%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">1 staff</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">Beer & Cooler</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 100%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">1 staff</span>
-                        </div>
-                        <div class="compliance-meter">
-                            <span class="compliance-label">Entrance</span>
-                            <div class="compliance-bar">
-                                <div class="compliance-fill" style="width: 100%;"></div>
-                            </div>
-                            <span class="compliance-value" style="color: var(--success);">1 staff</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Customer Experience Tab -->
-        <div class="tab-content" id="tab-customer">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">🛍️ Customer Experience</h2>
-                    <span class="section-badge" style="background: var(--success-bg); color: var(--success);">GOOD
-                        FLOW</span>
-                </div>
-                <div class="grid-4">
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">GOOD</span>
-                            <span class="kpi-icon">⏱️</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Avg Wait Time</div>
-                            <div class="kpi-description">Checkout queue</div>
-                            <div class="kpi-value success">2.8m</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">OK</span>
-                            <span class="kpi-icon">🛒</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Checkout Lanes</div>
-                            <div class="kpi-description">Open / Total</div>
-                            <div class="kpi-value success">2/2</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">GOOD</span>
-                            <span class="kpi-icon">🎯</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Conversion Rate</div>
-                            <div class="kpi-description">Visitors who purchased</div>
-                            <div class="kpi-value success">78%</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">EXCELLENT</span>
-                            <span class="kpi-icon">💰</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Avg Transaction</div>
-                            <div class="kpi-description">Per customer</div>
-                            <div class="kpi-value success">$47</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Queue Status -->
-            <section class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>🛒 Live Queue Status</h3>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">2/2 counters open</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="queue-status" id="queueStatus">
-                            <!-- Queue items populated by JS -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Customer Charts -->
-            <section class="section">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📊 Hourly Traffic</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="hourlyTrafficChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🎯 Sales by Category</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="salesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Security Tab -->
-        <div class="tab-content" id="tab-security">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">🛡️ Security & Loss Prevention</h2>
-                    <span class="section-badge critical">1 ACTIVE</span>
-                </div>
-                <div class="grid-4">
-                    <div class="kpi-card high">
-                        <div class="kpi-header">
-                            <span class="kpi-severity high">HIGH</span>
-                            <span class="kpi-icon">👀</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Suspicious Loitering</div>
-                            <div class="kpi-description">Spirits section - 7 min</div>
-                            <div class="kpi-value high">1</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-action">View Camera →</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">CLEAR</span>
-                            <span class="kpi-icon">🚪</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Backroom Access</div>
-                            <div class="kpi-description">No unauthorized entry</div>
-                            <div class="kpi-value success">0</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">CLEAR</span>
-                            <span class="kpi-icon">🍺</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Concealment</div>
-                            <div class="kpi-description">No theft attempts</div>
-                            <div class="kpi-value success">0</div>
-                        </div>
-                    </div>
-                    <div class="kpi-card success">
-                        <div class="kpi-header">
-                            <span class="kpi-severity success">SECURED</span>
-                            <span class="kpi-icon">💰</span>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-title">Cash Drawer</div>
-                            <div class="kpi-description">Always attended</div>
-                            <div class="kpi-value success">✓</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Security Stats -->
-            <section class="section">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📈 Security Incidents (30 Days)</h3>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="securityChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🎯 Shrinkage Hotspots</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="compliance-meter">
-                                <span class="compliance-label">Premium Spirits</span>
-                                <div class="compliance-bar">
-                                    <div class="compliance-fill"
-                                        style="width: 40%; background: var(--gradient-danger);"></div>
-                                </div>
-                                <span class="compliance-value" style="color: var(--critical);">High Risk</span>
-                            </div>
-                            <div class="compliance-meter">
-                                <span class="compliance-label">Fine Wine</span>
-                                <div class="compliance-bar">
-                                    <div class="compliance-fill"
-                                        style="width: 25%; background: linear-gradient(90deg, var(--medium), var(--high));">
-                                    </div>
-                                </div>
-                                <span class="compliance-value" style="color: var(--high);">Medium</span>
-                            </div>
-                            <div class="compliance-meter">
-                                <span class="compliance-label">Craft Beer</span>
-                                <div class="compliance-bar">
-                                    <div class="compliance-fill" style="width: 15%;"></div>
-                                </div>
-                                <span class="compliance-value" style="color: var(--success);">Low</span>
-                            </div>
-                            <div class="compliance-meter">
-                                <span class="compliance-label">Mixers</span>
-                                <div class="compliance-bar">
-                                    <div class="compliance-fill" style="width: 5%;"></div>
-                                </div>
-                                <span class="compliance-value" style="color: var(--success);">Very Low</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Cameras Tab -->
-        <div class="tab-content" id="tab-cameras">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">📹 Camera Selection</h2>
-                    <span style="color: var(--text-muted); font-size: 0.8rem;">6 cameras online</span>
-                </div>
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Select Camera</h3>
-                        </div>
-                        <div class="card-body">
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <button class="btn btn-secondary camera-select-btn" data-camera="cam-01"
-                                    style="justify-content: space-between; width: 100%;">
-                                    <span>📹 CAM-01 | Entrance/Exit</span>
-                                    <span style="color: var(--success);">● Online</span>
-                                </button>
-                                <button class="btn btn-secondary camera-select-btn" data-camera="cam-02"
-                                    style="justify-content: space-between; width: 100%;">
-                                    <span>📹 CAM-02 | Spirits Section</span>
-                                    <span style="color: var(--success);">● Online</span>
-                                </button>
-                                <button class="btn btn-secondary camera-select-btn" data-camera="cam-03"
-                                    style="justify-content: space-between; width: 100%;">
-                                    <span>📹 CAM-03 | Wine Section</span>
-                                    <span style="color: var(--success);">● Online</span>
-                                </button>
-                                <button class="btn btn-secondary camera-select-btn" data-camera="cam-04"
-                                    style="justify-content: space-between; width: 100%;">
-                                    <span>📹 CAM-04 | Beer & Cooler</span>
-                                    <span style="color: var(--success);">● Online</span>
-                                </button>
-                                <button class="btn btn-secondary camera-select-btn" data-camera="cam-05"
-                                    style="justify-content: space-between; width: 100%; border-color: var(--high);">
-                                    <span>📹 CAM-05 | Checkout Counter</span>
-                                    <span style="color: var(--high);">⚠ Alert</span>
-                                </button>
-                                <button class="btn btn-secondary camera-select-btn" data-camera="cam-06"
-                                    style="justify-content: space-between; width: 100%;">
-                                    <span>📹 CAM-06 | Storage/Backroom</span>
-                                    <span style="color: var(--success);">● Online</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><span class="live-dot"></span> Live Preview</h3>
-                        </div>
-                        <div class="card-body" style="padding: 0;">
-                            <div class="camera-view" id="cameraTabView">
-                                <div class="placeholder">🍷</div>
-                                <div class="camera-info">
-                                    <div class="camera-badge live">
-                                        <span class="dot"></span>
-                                        <span id="cameraTabName">CAM-01 | Entrance/Exit</span>
-                                    </div>
-                                </div>
-                                <div class="camera-stats">
-                                    <div class="camera-stat">
-                                        <span>👤 Customers</span>
-                                        <div class="value" id="cameraTabPersons">12</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Live Analysis Tab (NEW) -->
-        <div class="tab-content" id="tab-live">
-            <section class="section">
-                <div class="section-header">
-                    <h2 class="section-title">🔴 Live Analysis</h2>
-                    <div style="display: flex; gap: 0.5rem; align-items: center;">
-                        <span class="live-dot"></span>
-                        <span style="color: var(--critical); font-size: 0.8rem; font-weight: 600;">REAL-TIME AI
-                            PROCESSING</span>
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <!-- Live Camera Feed with Overlays -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><span class="live-dot"></span> Live Camera Feed</h3>
-                            <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                <select class="camera-dropdown" id="liveAnalysisCamera" style="font-size: 0.75rem;">
-                                    <option value="cam-01">CAM-01 | Entrance</option>
-                                    <option value="cam-02">CAM-02 | Spirits</option>
-                                    <option value="cam-03">CAM-03 | Wine</option>
-                                    <option value="cam-04">CAM-04 | Beer</option>
-                                    <option value="cam-05" selected>CAM-05 | Checkout</option>
-                                    <option value="cam-06">CAM-06 | Storage</option>
-                                </select>
-                                <select class="camera-dropdown" id="aiModelSelect" style="font-size: 0.75rem;">
-                                    <option value="gpt4v">GPT-4 Vision</option>
-                                    <option value="gemini">Gemini Pro</option>
-                                    <option value="llama">LLaMA 3.2 Vision</option>
-                                    <option value="claude">Claude 3.5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="card-body" style="padding: 0;">
-                            <div class="camera-view live-analysis-view" id="liveAnalysisView">
-                                <div class="placeholder">🎥</div>
-                                <!-- Detection Overlays -->
-                                <div class="detection-overlay" id="detectionOverlays">
-                                    <div class="detection-box person"
-                                        style="top: 30%; left: 20%; width: 15%; height: 40%;">
-                                        <span class="detection-label">👤 Customer</span>
-                                    </div>
-                                    <div class="detection-box staff"
-                                        style="top: 25%; left: 60%; width: 12%; height: 35%;">
-                                        <span class="detection-label">👔 Staff</span>
-                                    </div>
-                                    <div class="detection-box id-check"
-                                        style="top: 50%; left: 40%; width: 20%; height: 8%;">
-                                        <span class="detection-label">🎂 ID Check Zone</span>
-                                    </div>
-                                </div>
-                                <div class="camera-info">
-                                    <div class="camera-badge live">
-                                        <span class="dot"></span>
-                                        <span>AI Analysis Active</span>
-                                    </div>
-                                </div>
-                                <div class="analysis-fps">
-                                    <span>🎯 FPS: 24</span>
-                                    <span>🧠 Latency: 120ms</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer" style="padding: 1rem; display: flex; gap: 0.5rem;">
-                            <button class="btn btn-primary" onclick="analyzeFrame()">📸 Analyze Frame</button>
-                            <button class="btn btn-secondary" id="toggleLiveBtn" onclick="toggleLiveAnalysis()">⏸️
-                                Pause</button>
-                            <button class="btn btn-secondary" onclick="exportAnalysis()">📊 Export</button>
-                        </div>
-                    </div>
-
-                    <!-- AI Analysis Panel -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🧠 AI Analysis Results</h3>
-                            <span id="analysisTimestamp" style="font-size: 0.7rem; color: var(--text-muted);">Updated:
-                                Just now</span>
-                        </div>
-                        <div class="card-body">
-                            <!-- Compliance Scores -->
-                            <div class="analysis-section">
-                                <h4 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">📊
-                                    COMPLIANCE SCORES</h4>
-                                <div class="compliance-meter">
-                                    <span class="compliance-label">🎂 Age Verification</span>
-                                    <div class="compliance-bar">
-                                        <div class="compliance-fill" style="width: 100%;" id="ageComplianceBar"></div>
-                                    </div>
-                                    <span class="compliance-value" style="color: var(--success);"
-                                        id="ageComplianceVal">✓
-                                        Verified</span>
-                                </div>
-                                <div class="compliance-meter">
-                                    <span class="compliance-label">👔 Staff Compliance</span>
-                                    <div class="compliance-bar">
-                                        <div class="compliance-fill" style="width: 100%;" id="staffComplianceBar"></div>
-                                    </div>
-                                    <span class="compliance-value" style="color: var(--success);"
-                                        id="staffComplianceVal">100%</span>
-                                </div>
-                                <div class="compliance-meter">
-                                    <span class="compliance-label">🛡️ Security Status</span>
-                                    <div class="compliance-bar">
-                                        <div class="compliance-fill" style="width: 95%;" id="securityBar"></div>
-                                    </div>
-                                    <span class="compliance-value" style="color: var(--success);"
-                                        id="securityVal">Clear</span>
-                                </div>
-                            </div>
-
-                            <!-- Scene Description -->
-                            <div class="analysis-section" style="margin-top: 1rem;">
-                                <h4 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">🎯
-                                    SCENE ANALYSIS</h4>
-                                <div class="scene-description" id="sceneDescription">
-                                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary);">
-                                        <strong style="color: var(--accent-primary);">Current Scene:</strong> Checkout
-                                        counter with 1 customer and 1 staff member. Customer (appears mid-30s)
-                                        presenting ID. Staff performing verification check.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Detections List -->
-                            <div class="analysis-section" style="margin-top: 1rem;">
-                                <h4 style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">📋
-                                    DETECTIONS</h4>
-                                <div class="detections-list" id="detectionsList">
-                                    <div class="detection-item success">
-                                        <span>✓</span>
-                                        <span>ID verification in progress</span>
-                                        <span style="color: var(--text-muted);">2s ago</span>
-                                    </div>
-                                    <div class="detection-item success">
-                                        <span>✓</span>
-                                        <span>Staff in uniform, badge visible</span>
-                                        <span style="color: var(--text-muted);">5s ago</span>
-                                    </div>
-                                    <div class="detection-item info">
-                                        <span>ℹ️</span>
-                                        <span>Customer estimated age: 35-40</span>
-                                        <span style="color: var(--text-muted);">8s ago</span>
-                                    </div>
-                                    <div class="detection-item success">
-                                        <span>✓</span>
-                                        <span>Queue clear, no wait time</span>
-                                        <span style="color: var(--text-muted);">12s ago</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Quick Stats -->
-                            <div class="analysis-section" style="margin-top: 1rem;">
-                                <div
-                                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; text-align: center;">
-                                    <div
-                                        style="padding: 0.75rem; background: var(--bg-glass); border-radius: 8px; border: 1px solid var(--border-glass);">
-                                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--success);">2
-                                        </div>
-                                        <div style="font-size: 0.65rem; color: var(--text-muted);">People Detected</div>
-                                    </div>
-                                    <div
-                                        style="padding: 0.75rem; background: var(--bg-glass); border-radius: 8px; border: 1px solid var(--border-glass);">
-                                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--success);">1
-                                        </div>
-                                        <div style="font-size: 0.65rem; color: var(--text-muted);">ID Checks</div>
-                                    </div>
-                                    <div
-                                        style="padding: 0.75rem; background: var(--bg-glass); border-radius: 8px; border: 1px solid var(--border-glass);">
-                                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--success);">0
-                                        </div>
-                                        <div style="font-size: 0.65rem; color: var(--text-muted);">Alerts</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Analysis History -->
-            <section class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>📜 Analysis History</h3>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Last 10 significant
-                            detections</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="analysis-history" id="analysisHistory">
-                            <!-- History items populated by JS -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- LIQUOR-GPT Tab -->
-        <div class="tab-content" id="tab-assistant">
-            <section class="section">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🤖 LIQUOR-GPT Assistant</h3>
-                        </div>
-                        <div class="chat-container">
-                            <div class="chat-messages" id="chatMessages">
-                                <div class="chat-message">
-                                    <div class="chat-avatar">🤖</div>
-                                    <div class="chat-bubble">
-                                        Welcome to <strong>LIQUOR-GPT</strong> — your intelligent liquor store
-                                        analytics assistant. I can help you with:
-                                        <ul
-                                            style="margin-top: 0.5rem; padding-left: 1.25rem; color: var(--text-secondary);">
-                                            <li>Age verification compliance</li>
-                                            <li>Inventory and stock analysis</li>
-                                            <li>Security and theft prevention</li>
-                                            <li>Staff compliance reports</li>
-                                        </ul>
-                                        <div
-                                            style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-glass); border-radius: 6px; font-size: 0.8rem;">
-                                            <strong style="color: var(--accent-primary);">Tip:</strong> Try "Show age
-                                            verification status" or "Generate compliance report"
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="chat-input-container">
-                                <input type="text" class="chat-input" id="chatInput"
-                                    placeholder="Ask LIQUOR-GPT anything...">
-                                <button class="btn btn-primary" id="chatSend">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>⚡ Quick Actions</h3>
-                        </div>
-                        <div class="card-body">
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <button class="btn btn-secondary" style="justify-content: flex-start; width: 100%;"
-                                    onclick="askGPT('Show age verification status')">
-                                    🎂 Age verification status
-                                </button>
-                                <button class="btn btn-secondary" style="justify-content: flex-start; width: 100%;"
-                                    onclick="askGPT('What are today\\'s alerts?')">
-                                    🚨 Today's alerts
-                                </button>
-                                <button class="btn btn-secondary" style="justify-content: flex-start; width: 100%;"
-                                    onclick="askGPT('Show inventory status')">
-                                    🍷 Inventory status
-                                </button>
-                                <button class="btn btn-secondary" style="justify-content: flex-start; width: 100%;"
-                                    onclick="askGPT('Staff compliance summary')">
-                                    👔 Staff compliance
-                                </button>
-                                <button class="btn btn-secondary" style="justify-content: flex-start; width: 100%;"
-                                    onclick="askGPT('Generate compliance report')">
-                                    📋 Generate compliance report
-                                </button>
-                                <button class="btn btn-secondary" style="justify-content: flex-start; width: 100%;"
-                                    onclick="askGPT('Security status')">
-                                    🛡️ Security status
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
 
     <script src="app.js"></script>
 </body>

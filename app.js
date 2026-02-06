@@ -102,6 +102,120 @@ const analysisHistory = [
 ];
 
 // ===============================
+// New Dashboard Data
+// ===============================
+
+const mockAuditLogs = [
+    { date: '02/06/2026 3:10 AM', camera: 'CAMERA UYSC 7421-BCX', zone: 'CHECKOUT', alerts: 5, severity: 'critical', insights: 'Customer loitering near premium spirits section for extended period. Staff response time exceeded threshold.' },
+    { date: '02/06/2026 4:25 PM', camera: 'CAMERA XYZ 1234-ABC', zone: 'SPIRITS_SECTION', alerts: 7, severity: 'warning', insights: 'Suspicious movement pattern detected near high-value whiskey display. Dwell time 8 minutes.' },
+    { date: '02/06/2026 2:15 PM', camera: 'CAMERA 9876-WXY', zone: 'WINE_SECTION', alerts: 10, severity: 'warning', insights: 'Multiple customers requiring assistance but staff unavailable in zone for 5+ minutes.' },
+    { date: '02/06/2026 1:30 AM', camera: 'CAMERA 4567-ZYX', zone: 'ENTRANCE', alerts: 12, severity: 'triaged', insights: 'After-hours motion detected, security patrol verified as scheduled maintenance.' }
+];
+
+const mockShiftData = {
+    onShift: 5,
+    late: 1,
+    absent: 0
+};
+
+const mockComplianceIndex = {
+    greeting: 92,
+    response: 78,
+    cleanliness: 88,
+    uniform: 100,
+    inventory: 85
+};
+
+const mockPeakTraffic = {
+    zones: ['Checkout', 'Spirits', 'Wine', 'Beer/Cooler'],
+    hours: ['12am', '2am', '4am', '6am', '8am', '10am', '12pm', '2pm', '4pm', '6pm', '8pm', '10pm'],
+    data: [
+        // Checkout: busier during day
+        [1, 1, 1, 1, 11, 8, 1, 4, 17, 6, 2, 2],
+        // Spirits: peaks evening
+        [1, 1, 1, 1, 11, 20, 3, 4, 9, 14, 6, 1],
+        // Wine: steady afternoon/evening
+        [1, 1, 5, 15, 7, 3, 12, 10, 11, 7, 9, 2],
+        // Beer/Cooler: peaks evening
+        [1, 1, 1, 1, 2, 8, 22, 13, 16, 4, 1, 1]
+    ]
+};
+
+// SOP Compliance Logs Mock Data
+const mockSOPLogs = [
+    { time: 'Feb 6, 2026 10:24 AM', camera: 'checkout_counter', greeting: 'pass', idCheck: 'pass', cleanliness: 'pass', uniform: 'fail' },
+    { time: 'Feb 6, 2026 10:21 AM', camera: 'entrance_area', greeting: 'fail', idCheck: 'na', cleanliness: 'pass', uniform: 'pass' },
+    { time: 'Feb 6, 2026 10:13 AM', camera: 'spirits_section', greeting: 'na', idCheck: 'fail', cleanliness: 'pass', uniform: 'fail' },
+    { time: 'Feb 6, 2026 9:56 AM', camera: 'wine_section', greeting: 'pass', idCheck: 'pass', cleanliness: 'fail', uniform: 'pass' },
+    { time: 'Feb 6, 2026 9:44 AM', camera: 'beer_cooler', greeting: 'na', idCheck: 'na', cleanliness: 'pass', uniform: 'pass' },
+    { time: 'Feb 6, 2026 9:30 AM', camera: 'checkout_counter', greeting: 'pass', idCheck: 'pass', cleanliness: 'pass', uniform: 'pass' },
+    { time: 'Feb 6, 2026 9:15 AM', camera: 'entrance_area', greeting: 'fail', idCheck: 'na', cleanliness: 'pass', uniform: 'fail' },
+    { time: 'Feb 6, 2026 8:55 AM', camera: 'storage_room', greeting: 'na', idCheck: 'na', cleanliness: 'fail', uniform: 'pass' },
+    { time: 'Feb 6, 2026 8:40 AM', camera: 'spirits_section', greeting: 'pass', idCheck: 'fail', cleanliness: 'pass', uniform: 'pass' },
+    { time: 'Feb 6, 2026 8:20 AM', camera: 'checkout_counter', greeting: 'pass', idCheck: 'pass', cleanliness: 'pass', uniform: 'fail' },
+    { time: 'Feb 5, 2026 6:30 PM', camera: 'entrance_area', greeting: 'pass', idCheck: 'pass', cleanliness: 'pass', uniform: 'pass' },
+    { time: 'Feb 5, 2026 5:45 PM', camera: 'wine_section', greeting: 'na', idCheck: 'pass', cleanliness: 'fail', uniform: 'pass' },
+    { time: 'Feb 5, 2026 5:20 PM', camera: 'beer_cooler', greeting: 'pass', idCheck: 'fail', cleanliness: 'pass', uniform: 'fail' },
+    { time: 'Feb 5, 2026 4:55 PM', camera: 'checkout_counter', greeting: 'pass', idCheck: 'pass', cleanliness: 'pass', uniform: 'pass' },
+    { time: 'Feb 5, 2026 4:30 PM', camera: 'spirits_section', greeting: 'fail', idCheck: 'na', cleanliness: 'pass', uniform: 'pass' },
+];
+
+let sopCurrentPage = 1;
+const sopItemsPerPage = 5;
+
+function openSOPModal() {
+    sopCurrentPage = 1;
+    renderSOPTable();
+    document.getElementById('sopModal').style.display = 'flex';
+}
+
+function closeSOPModal() {
+    document.getElementById('sopModal').style.display = 'none';
+}
+
+function renderSOPTable() {
+    const tbody = document.getElementById('sopTableBody');
+    const totalPages = Math.ceil(mockSOPLogs.length / sopItemsPerPage);
+    const start = (sopCurrentPage - 1) * sopItemsPerPage;
+    const end = start + sopItemsPerPage;
+    const pageData = mockSOPLogs.slice(start, end);
+
+    const statusBadge = (status) => {
+        if (status === 'pass') return '<span class="sop-status pass">Pass</span>';
+        if (status === 'fail') return '<span class="sop-status fail">Fail</span>';
+        return '<span class="sop-status na">N/A</span>';
+    };
+
+    tbody.innerHTML = pageData.map(log => `
+        <tr>
+            <td>${log.time}</td>
+            <td>${log.camera}</td>
+            <td>${statusBadge(log.greeting)}</td>
+            <td>${statusBadge(log.idCheck)}</td>
+            <td>${statusBadge(log.cleanliness)}</td>
+            <td>${statusBadge(log.uniform)}</td>
+        </tr>
+    `).join('');
+
+    document.getElementById('sopPageInfo').textContent = `Page ${sopCurrentPage} of ${totalPages}`;
+    document.getElementById('sopPrevBtn').disabled = sopCurrentPage === 1;
+    document.getElementById('sopNextBtn').disabled = sopCurrentPage === totalPages;
+}
+
+function changeSopPage(delta) {
+    const totalPages = Math.ceil(mockSOPLogs.length / sopItemsPerPage);
+    sopCurrentPage = Math.max(1, Math.min(totalPages, sopCurrentPage + delta));
+    renderSOPTable();
+}
+
+// Close modal on overlay click
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+        e.target.style.display = 'none';
+    }
+});
+
+// ===============================
 // DOM Ready
 // ===============================
 
@@ -109,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeTheme();
     initializeDashboard();
     initializeTabNavigation();
+    initializeSidebarNavigation();
     initializeCameraSelector();
     initializeCharts();
     initializeLiveAnalysis();
@@ -187,7 +302,52 @@ function initializeTabNavigation() {
                     content.classList.add('active');
                 }
             });
+
+            // Sync sidebar items with tab selection
+            syncSidebarWithTab(tabId);
         });
+    });
+}
+
+function initializeSidebarNavigation() {
+    const sidebarItems = document.querySelectorAll('.sidebar-item[data-tab]');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabId = item.dataset.tab;
+
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            // Update tab buttons (hidden but keep in sync)
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tab === tabId) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update tab contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `tab-${tabId}`) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+function syncSidebarWithTab(tabId) {
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.tab === tabId) {
+            item.classList.add('active');
+        }
     });
 }
 
@@ -540,11 +700,17 @@ Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
 
 function initializeCharts() {
     initFootfallChart();
-    initAgeCheckChart();
+    initHygieneScoreChart();
+    initShiftCoverageChart();
+    initComplianceRadarChart();
+    initCategorySalesChart();
+    renderPeakTrafficGrid();
+    renderRecentAudits();
     initVerificationChart();
     initHourlyTrafficChart();
     initSalesChart();
     initSecurityChart();
+    initAuditFilters();
 }
 
 function initFootfallChart() {
@@ -783,6 +949,262 @@ function initSecurityChart() {
                 x: { grid: { display: false }, ticks: { color: '#64748b' } }
             }
         }
+    });
+}
+
+// ===============================
+// New Dashboard Charts
+// ===============================
+
+function initHygieneScoreChart() {
+    const ctx = document.getElementById('hygieneScoreChart');
+    if (!ctx) return;
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Feb 01', 'Feb 02', 'Feb 03', 'Feb 04', 'Feb 05', 'Feb 06'],
+            datasets: [{
+                label: 'Hygiene Score',
+                data: [88, 92, 90, 89, 91, 90.3],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#10b981',
+                pointBorderColor: '#10b981'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: {
+                    min: 30,
+                    max: 100,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#64748b' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#64748b' }
+                }
+            }
+        }
+    });
+}
+
+function initShiftCoverageChart() {
+    const ctx = document.getElementById('shiftCoverageChart');
+    if (!ctx) return;
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['On Time', 'Late', 'Absent'],
+            datasets: [{
+                data: [mockShiftData.onShift, mockShiftData.late, mockShiftData.absent || 0.1],
+                backgroundColor: [
+                    'rgba(16, 185, 129, 0.85)',
+                    'rgba(249, 115, 22, 0.85)',
+                    'rgba(239, 68, 68, 0.85)'
+                ],
+                borderColor: ['#10b981', '#f97316', '#ef4444'],
+                borderWidth: 2,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { usePointStyle: true, padding: 15, font: { size: 11 }, color: '#94a3b8' }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: { weight: 'bold', size: 12 },
+                    formatter: (value, ctx) => {
+                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = Math.round((value / total) * 100);
+                        return percentage > 5 ? percentage + '%' : '';
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
+
+function initComplianceRadarChart() {
+    const ctx = document.getElementById('complianceRadarChart');
+    if (!ctx) return;
+
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Greeting', 'Response', 'Cleanliness', 'Uniform', 'Inventory'],
+            datasets: [{
+                label: 'Compliance %',
+                data: [
+                    mockComplianceIndex.greeting,
+                    mockComplianceIndex.response,
+                    mockComplianceIndex.cleanliness,
+                    mockComplianceIndex.uniform,
+                    mockComplianceIndex.inventory
+                ],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                pointBackgroundColor: '#3b82f6',
+                pointBorderColor: '#3b82f6',
+                pointRadius: 4,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    pointLabels: { color: '#94a3b8', font: { size: 11 } },
+                    ticks: { display: false }
+                }
+            }
+        }
+    });
+}
+
+function initCategorySalesChart() {
+    const ctx = document.getElementById('categorySalesChart');
+    if (!ctx) return;
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Spirits', 'Wine', 'Beer', 'Mixers', 'Accessories'],
+            datasets: [{
+                data: [42, 28, 18, 8, 4],
+                backgroundColor: [
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(30, 64, 175, 0.8)',
+                    'rgba(6, 182, 212, 0.8)',
+                    'rgba(16, 185, 129, 0.8)',
+                    'rgba(100, 116, 139, 0.8)'
+                ],
+                borderColor: ['#3b82f6', '#1e40af', '#06b6d4', '#10b981', '#64748b'],
+                borderWidth: 2,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { usePointStyle: true, padding: 15, font: { size: 11 }, color: '#94a3b8' }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: { weight: 'bold', size: 11 },
+                    formatter: (value, ctx) => {
+                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = Math.round((value / total) * 100);
+                        return percentage > 5 ? percentage + '%' : '';
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
+
+function renderPeakTrafficGrid() {
+    const container = document.getElementById('peakTrafficGrid');
+    if (!container) return;
+
+    const getHeatClass = (value) => {
+        if (value <= 3) return 'low';
+        if (value <= 8) return 'medium';
+        if (value <= 15) return 'high';
+        return 'critical';
+    };
+
+    let html = `
+        <div class="peak-traffic-header">
+            ${mockPeakTraffic.hours.map(h => `<span>${h}</span>`).join('')}
+        </div>
+    `;
+
+    mockPeakTraffic.zones.forEach((zone, zoneIndex) => {
+        html += `
+            <div class="peak-traffic-row">
+                <span class="peak-traffic-label">${zone}</span>
+                <div class="peak-traffic-cells">
+                    ${mockPeakTraffic.data[zoneIndex].map(value =>
+            `<div class="peak-traffic-cell ${getHeatClass(value)}">${value}</div>`
+        ).join('')}
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+        <div class="peak-traffic-legend">
+            <span class="peak-traffic-legend-item">
+                <span class="peak-traffic-legend-color" style="background: #22c55e;"></span>
+                Low
+            </span>
+            <span class="peak-traffic-legend-item">
+                <span class="peak-traffic-legend-color" style="background: #f97316;"></span>
+                High
+            </span>
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
+
+function renderRecentAudits(filter = 'all') {
+    const container = document.getElementById('recentAuditsTable');
+    if (!container) return;
+
+    const filteredAudits = filter === 'all'
+        ? mockAuditLogs
+        : mockAuditLogs.filter(a => a.severity === filter);
+
+    container.innerHTML = filteredAudits.map(audit => `
+        <div class="audit-row" data-severity="${audit.severity}">
+            <div class="audit-severity ${audit.severity}"></div>
+            <div class="audit-datetime">${audit.date}</div>
+            <div class="audit-camera">${audit.camera}</div>
+            <div class="audit-zone">${audit.zone}</div>
+            <div class="audit-alerts">${audit.alerts}</div>
+            <div class="audit-insights">${audit.insights}</div>
+            <div class="audit-action">
+                <button class="btn btn-primary">View Details</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function initAuditFilters() {
+    const filters = document.querySelectorAll('.audit-filter');
+    filters.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filters.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderRecentAudits(btn.dataset.filter);
+        });
     });
 }
 
