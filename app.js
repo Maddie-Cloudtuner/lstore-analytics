@@ -1234,7 +1234,7 @@ const chatResponses = {
 ✅ 3 minors successfully refused service today
 </div>`,
 
-    "What are today's alerts?": `<strong style="color: var(--critical);">🚨 Today's Alerts</strong>
+    "Show today alerts": `<strong style="color: var(--critical);">🚨 Today's Alerts</strong>
 
 <div style="margin-top: 0.75rem; display: grid; gap: 0.5rem;">
 <div style="padding: 0.75rem; background: var(--high-bg); border-left: 3px solid var(--high); border-radius: 6px;">
